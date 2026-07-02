@@ -10,8 +10,8 @@ const phrases = [
 
 const projects = [
   {
-    tag: "E-Commerce",
-    title: "Gmax Electronics Service Center Shopify Webstore",
+    tag: "Gmax Electronics Hub E-Commerce",
+    title: "Shopify Webstore",
     desc: "A fully customized Shopify storefront built for company use. Includes theme customization, product catalog setup, collections, and optimized checkout flow for a seamless shopping experience.",
     stack: ["Shopify", "Liquid"],
     link: "#",
@@ -27,7 +27,7 @@ const projects = [
     tag: "Government System",
     title: "LibertyTrack",
     desc: "A prisoner management system with descriptive analytics and facial recognition for Moriones Police Station (PS2). Built with Python's face_recognition library and a PHP backend.",
-    stack: ["PHP", "Python", "Tailwind CSS", "MySQL", "face_recognition"],
+    stack: ["PHP", "Python", "Tailwind CSS", "MySQL", "Face Recognition"],
     link: "https://github.com/MoisesVeloso/LibertyTrack",
   },
   {
@@ -51,18 +51,11 @@ const projects = [
     stack: ["PHP", "MySQL", "HTML", "CSS"],
     link: "https://github.com/MoisesVeloso/Loyalty-Program",
   },
-  {
-    tag: "Personal",
-    title: "MoiDev",
-    desc: "Personal dev workspace and project sandbox — a JavaScript playground for experiments and prototypes.",
-    stack: ["JavaScript", "HTML", "CSS"],
-    link: "https://github.com/MoisesVeloso/MoiDev",
-  },
 ];
 
 const experiences = [
   {
-    year: "Apr 2025 – Present",
+    year: "Apr 2025 – Apr 2026",
     role: "Sales & IT Support",
     company: "Gmax Electronics Service Center",
     desc: "Provides basic IT support and troubleshooting for office systems. Processes sales, performs daily sales auditing, encodes and maintains sales records, and assists with general administrative tasks.",
@@ -99,6 +92,20 @@ const skillCategories = [
   { name: "Tools & Design", items: ["Figma", "Adobe Premiere Pro", "Git & GitHub", "Microsoft Office"] },
   { name: "Other Skills", items: ["IT Troubleshooting", "Computer Servicing", "Basic Accounting", "Customer Service"] },
 ];
+
+const education = [
+  { year: "2025", degree: "BS in Information Technology", school: "Universidad de Manila" },
+  { year: "2020", degree: "Computer System Servicing", school: "Mary Chiles College" },
+];
+
+const certifications = [
+  { name: "Responsive Web Design", issuer: "freeCodeCamp", year: "2022" },
+];
+
+const navItems = ["about", "projects", "experience", "skills", "resume"];
+const RESUME_PATH = "/resume/Carl_Moises_Veloso_Resume.pdf";
+const CONTACT_EMAIL = "velosomoises09@gmail.com";
+const CONTACT_PHONE = "+63 949 392 6811";
 
 function SkBar({ w, h, dark, style = {}, radius = 6 }) {
   return (
@@ -191,7 +198,7 @@ export default function Portfolio() {
   // Full-width section wrapper — background spans edge to edge
   const sectionOuter = { width: "100%" };
   // Centered inner content container
-  const inner = { maxWidth: 900, margin: "0 auto", padding: "5rem 2rem" };
+  const inner = { maxWidth: 1100, margin: "0 auto", padding: "5rem 4rem" };
   const sectionLabel = { fontSize: 11, letterSpacing: "0.14em", textTransform: "uppercase", color: c.accent, fontWeight: 500, marginBottom: "2rem", display: "flex", alignItems: "center", gap: 8 };
   const divider = <span style={{ flex: 1, height: "0.5px", background: c.border, maxWidth: 200 }} />;
 
@@ -211,9 +218,11 @@ export default function Portfolio() {
         .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
         .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+        .resume-grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 3rem; align-items: start; }
         .hero-buttons { display: flex; gap: 12px; flex-wrap: wrap; }
         .hero-links { margin-top: 3rem; display: flex; gap: 1rem; align-items: center; }
         .exp-row { display: grid; grid-template-columns: 140px 1fr; gap: 2rem; }
+        .edu-row { display: grid; grid-template-columns: 70px 1fr; gap: 1rem; }
         .nav-links { display: flex; align-items: center; gap: 1.5rem; }
         .hamburger { display: none; }
         .mobile-menu { display: none; }
@@ -221,7 +230,9 @@ export default function Portfolio() {
         @media (max-width: 640px) {
           .about-grid { grid-template-columns: 1fr; gap: 1.5rem; }
           .projects-grid { grid-template-columns: 1fr; }
+          .resume-grid { grid-template-columns: 1fr; gap: 1.5rem; }
           .exp-row { grid-template-columns: 1fr; gap: 0.25rem; }
+          .edu-row { grid-template-columns: 1fr; gap: 0.25rem; }
           .hero-links { flex-wrap: wrap; gap: 0.75rem; }
           .nav-links { display: none; }
           .hamburger { display: flex; }
@@ -248,9 +259,12 @@ export default function Portfolio() {
 
           {/* Desktop nav */}
           <div className="nav-links">
-            {["about", "projects", "experience", "skills"].map((s) => (
+            {navItems.map((s) => (
               <a key={s} href={`#${s}`} style={{ fontSize: 13, color: c.muted, fontWeight: 400 }}>{s.charAt(0).toUpperCase() + s.slice(1)}</a>
             ))}
+            <a href={RESUME_PATH} download style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "7px 16px", borderRadius: 100, fontSize: 12, fontWeight: 500, background: c.accent, color: "#fff" }}>
+              Resume ↓
+            </a>
             <button onClick={() => setDark((d) => !d)} style={{ width: 32, height: 32, borderRadius: "50%", border: `0.5px solid ${c.border}`, background: c.surface, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 15 }} aria-label="Toggle theme">
               {dark ? "🌙" : "☀️"}
             </button>
@@ -269,18 +283,21 @@ export default function Portfolio() {
 
         {/* Mobile dropdown menu */}
         <div className={`mobile-menu${menuOpen ? " open" : ""}`} style={{ background: dark ? "rgba(17,18,16,0.97)" : "rgba(245,244,240,0.97)", backdropFilter: "blur(12px)", borderBottom: `0.5px solid ${c.border}` }}>
-          {["about", "projects", "experience", "skills"].map((s) => (
+          {navItems.map((s) => (
             <a key={s} href={`#${s}`} onClick={() => setMenuOpen(false)} style={{ fontSize: 15, color: c.text, fontWeight: 400, padding: "0.25rem 0" }}>{s.charAt(0).toUpperCase() + s.slice(1)}</a>
           ))}
+          <a href={RESUME_PATH} download onClick={() => setMenuOpen(false)} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: 6, padding: "9px 16px", borderRadius: 100, fontSize: 13, fontWeight: 500, background: c.accent, color: "#fff" }}>
+            Download Resume ↓
+          </a>
         </div>
 
         {/* ── HERO ── */}
         <section id="home" style={{ width: "100%", minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center" }}>
-        <div style={{ maxWidth: 900, margin: "0 auto", padding: "5rem 2rem 3rem", width: "100%" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "5rem 4rem 3rem", width: "100%" }}>
           <p style={{ fontSize: 12, letterSpacing: "0.12em", textTransform: "uppercase", color: c.accent, fontWeight: 500, marginBottom: "1.5rem", display: "flex", alignItems: "center", gap: 8 }}>
             <span style={{ display: "block", width: 24, height: 1, background: c.accent }} /> Frontend Developer
           </p>
-          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(2rem, 6vw, 4rem)", lineHeight: 1.08, letterSpacing: -1.5, color: c.text, marginBottom: "1.5rem", maxWidth: 700 }}>
+          <h1 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "clamp(2rem, 6vw, 4rem)", lineHeight: 1.08, letterSpacing: -1.5, color: c.text, marginBottom: "1.5rem", maxWidth: 900 }}>
             Hi, I'm <span style={{ color: c.accent }}>Carl Moises Veloso</span><br />
             I build <TypedText />
             <span style={{ display: "inline-block", width: 3, height: "1em", background: c.accent, verticalAlign: "text-bottom", marginLeft: 2, animation: "blink 1s step-end infinite" }} />
@@ -290,10 +307,11 @@ export default function Portfolio() {
           </p>
           <div className="hero-buttons">
             <a href="#projects" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", borderRadius: 100, fontSize: 13, fontWeight: 500, background: c.accent, color: "#fff" }}>View my work ↓</a>
-            <a href="mailto:dev.moises09@gmail.com" style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", borderRadius: 100, fontSize: 13, fontWeight: 500, background: "transparent", color: c.text, border: `0.5px solid ${c.border}` }}>Get in touch</a>
+            <a href={RESUME_PATH} download style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", borderRadius: 100, fontSize: 13, fontWeight: 500, background: "transparent", color: c.text, border: `0.5px solid ${c.border}` }}>Download resume ↓</a>
+            <a href={`mailto:${CONTACT_EMAIL}`} style={{ display: "inline-flex", alignItems: "center", gap: 6, padding: "10px 22px", borderRadius: 100, fontSize: 13, fontWeight: 500, background: "transparent", color: c.text, border: `0.5px solid ${c.border}` }}>Get in touch</a>
           </div>
           <div className="hero-links">
-            {[["GitHub", "https://github.com/MoisesVeloso"], ["LinkedIn", "https://www.linkedin.com/in/moisesv09/"], ["Email", "mailto:dev.moises09@gmail.com"]].map(([label, href], i) => (
+            {[["GitHub", "https://github.com/MoisesVeloso"], ["LinkedIn", "https://www.linkedin.com/in/moisesv09/"], ["Email", `mailto:${CONTACT_EMAIL}`]].map(([label, href], i) => (
               <span key={label} style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
                 {i > 0 && <span style={{ width: 1, height: 12, background: c.border, display: "inline-block" }} />}
                 <a href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" style={{ fontSize: 12, letterSpacing: "0.06em", textTransform: "uppercase", color: c.muted, fontWeight: 500 }}>{label}</a>
@@ -320,7 +338,7 @@ export default function Portfolio() {
                 </div>
               </div>
               <div style={{ background: c.surface, border: `0.5px solid ${c.border}`, borderRadius: 16, padding: "1.5rem" }}>
-                {[["7+", "Projects built"], ["2+", "Years in tech roles"], ["1", "ML-powered project shipped"]].map(([num, label], i, arr) => (
+                {[["6", "Projects built"], ["2+", "Years in tech roles"], ["1", "ML-powered project shipped"]].map(([num, label], i, arr) => (
                   <div key={label} style={{ marginBottom: i < arr.length - 1 ? "1.25rem" : 0, paddingBottom: i < arr.length - 1 ? "1.25rem" : 0, borderBottom: i < arr.length - 1 ? `0.5px solid ${c.border}` : "none" }}>
                     <div style={{ fontFamily: "'DM Serif Display', serif", fontSize: "2rem", color: c.text }}>{num}</div>
                     <div style={{ fontSize: 12, color: c.muted }}>{label}</div>
@@ -407,14 +425,66 @@ export default function Portfolio() {
           </section>
         </Reveal>
 
+        {/* ── RESUME ── */}
+        <Reveal style={sectionOuter}>
+          <section id="resume" style={{ width: "100%" }}>
+            <div style={inner}>
+            <p style={sectionLabel}>Resume {divider}</p>
+            <div className="resume-grid">
+              <div>
+                <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "1.75rem", letterSpacing: -0.5, marginBottom: "1rem", color: c.text }}>Summary</h2>
+                <p style={{ fontSize: 15, color: c.muted, lineHeight: 1.8, marginBottom: "2rem" }}>
+                  Information Technology graduate with hands-on experience in IT support, technical troubleshooting, sales operations, and web development — including a paid freelance web app integrating a machine learning model for student learning-style classification. Comfortable using AI-assisted tools to build and ship working software.
+                </p>
+
+                <h2 style={{ fontFamily: "'DM Serif Display', serif", fontSize: "1.75rem", letterSpacing: -0.5, marginBottom: "1rem", color: c.text }}>Education</h2>
+                <div>
+                  {education.map((ed, i) => (
+                    <div key={ed.school} className="edu-row" style={{ padding: "1rem 0", borderBottom: i < education.length - 1 ? `0.5px solid ${c.border}` : "none" }}>
+                      <span style={{ fontSize: 12, color: c.muted, paddingTop: 2 }}>{ed.year}</span>
+                      <div>
+                        <p style={{ fontSize: 15, fontWeight: 500, color: c.text, marginBottom: 2 }}>{ed.degree}</p>
+                        <p style={{ fontSize: 13, color: c.accent }}>{ed.school}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+                <div style={{ background: c.surface, border: `0.5px solid ${c.border}`, borderRadius: 16, padding: "1.5rem" }}>
+                  <p style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: c.accent, fontWeight: 500, marginBottom: "1rem" }}>Certifications</p>
+                  {certifications.map((cert, i) => (
+                    <div key={cert.name} style={{ marginBottom: i < certifications.length - 1 ? "0.75rem" : 0 }}>
+                      <p style={{ fontSize: 14, fontWeight: 500, color: c.text }}>{cert.name}</p>
+                      <p style={{ fontSize: 12, color: c.muted }}>{cert.issuer} · {cert.year}</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div style={{ background: c.surface, border: `0.5px solid ${c.border}`, borderRadius: 16, padding: "1.5rem" }}>
+                  <p style={{ fontSize: 11, letterSpacing: "0.1em", textTransform: "uppercase", color: c.accent, fontWeight: 500, marginBottom: "1rem" }}>Contact</p>
+                  <p style={{ fontSize: 13, color: c.muted, marginBottom: 4 }}>Manila, Philippines</p>
+                  <p style={{ fontSize: 13, color: c.muted, marginBottom: 4 }}>{CONTACT_EMAIL}</p>
+                  <p style={{ fontSize: 13, color: c.muted, marginBottom: "1.25rem" }}>{CONTACT_PHONE}</p>
+                  <a href={RESUME_PATH} download style={{ display: "inline-flex", width: "100%", alignItems: "center", justifyContent: "center", gap: 6, padding: "11px 22px", borderRadius: 100, fontSize: 13, fontWeight: 500, background: c.accent, color: "#fff" }}>
+                    Download full resume (PDF) ↓
+                  </a>
+                </div>
+              </div>
+            </div>
+            </div>
+          </section>
+        </Reveal>
+
         {/* ── FOOTER ── */}
         <footer style={{ borderTop: `0.5px solid ${c.border}`, padding: "2rem 1.25rem", textAlign: "center" }}>
           <p style={{ fontSize: 13, color: c.muted }}>
             Designed & built by <span style={{ color: c.accent, fontWeight: 500 }}>Carl Moises Veloso</span> · {new Date().getFullYear()}
           </p>
           <div style={{ display: "flex", justifyContent: "center", flexWrap: "wrap", gap: "1.5rem", marginTop: "1rem" }}>
-            {[["GitHub", "https://github.com/MoisesVeloso"], ["LinkedIn", "https://www.linkedin.com/in/moisesv09/"], ["Email", "mailto:dev.moises09@gmail.com"]].map(([label, href]) => (
-              <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" style={{ fontSize: 12, color: c.muted, letterSpacing: "0.06em", textTransform: "uppercase" }}>{label}</a>
+            {[["GitHub", "https://github.com/MoisesVeloso"], ["LinkedIn", "https://www.linkedin.com/in/moisesv09/"], ["Email", `mailto:${CONTACT_EMAIL}`], ["Resume", RESUME_PATH]].map(([label, href]) => (
+              <a key={label} href={href} target={href.startsWith("http") ? "_blank" : undefined} rel="noreferrer" download={label === "Resume" ? true : undefined} style={{ fontSize: 12, color: c.muted, letterSpacing: "0.06em", textTransform: "uppercase" }}>{label}</a>
             ))}
           </div>
         </footer>
